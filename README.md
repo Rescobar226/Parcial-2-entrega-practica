@@ -13,6 +13,8 @@ Notas:
 
 ->Para garantizar un rendimiento óptimo del sistema, la frecuencia operativa de un microcontrolador se establece en 16 MHz, lo que proporciona suficiente potencia de procesamiento para manejar las operaciones requeridas y mantener una interfaz de usuario receptiva.
 
+--Ahora bien, expliquemos la estructura del codigo y que es cada parte--
+
 ->Direcciones base:
 
 El código define direcciones base para puertos y periféricos GPIO. ¿Qué significa eso? Cuando trabajamos con microcontroladores o dispositivos integrados, a menudo necesitamos comunicarnos con hardware externo como sensores, pantallas o incluso otros microcontroladores. Para ello necesitamos acceder a los registros de hardware específicos de estos dispositivos.
@@ -27,3 +29,42 @@ En el código, estas direcciones base se definen como constantes o macros. Por e
 Esto significa que la dirección base para el puerto GPIO A está en la dirección de memoria 0x40020000, mientras que la dirección base para el puerto GPIO B está en la dirección de memoria 0x40020400.
 
 Ahora bien, ¿por qué son importantes estas instrucciones? Si queremos configurar un pin GPIO específico o interactuar con un dispositivo periférico como un módulo USART, necesitamos acceder a los registros de control correspondientes. Y para ello necesitamos saber dónde están estos registros. Las direcciones base nos proporcionan la información crucial.
+
+->Estructuras de control de dispositivos:
+
+En el código definimos estructuras para controlar dispositivos como pines GPIO, reloj RCC y comunicación USART. Estas estructuras sirven como plantillas que contienen todas las configuraciones y conjuntos de datos necesarios para cada componente. Por ejemplo, podemos tener una estructura para los pines GPIO que contenga registros de modo, tipo de salida y velocidad. Estas estructuras facilitan el acceso y la configuración de los dispositivos y simplifican así la programación.
+
+Estructuras específicas del dispositivo:
+
+Dentro de estas estructuras encontramos un ejemplo concreto, como es la estructura GPIO_Registers_t. Esta estructura contiene registros para modo pin, tipo de salida y velocidad, entre otros. Estos registros son cruciales para la configuración efectiva y eficiente de los pines GPIO.
+```c
+typedef struct {
+    volatile uint32_t MODER;    // Registro de modo de pin
+    volatile uint32_t OTYPER;   // Registro de tipo de salida
+    volatile uint32_t OSPEEDR;  // Registro de velocidad de salida
+    // Otros registros...
+} GPIO_Registers_t;
+```
+->Gestión del tiempo:
+
+También definimos una estructura llamada Time_t para rastrear horas, minutos y segundos. Esta estructura es útil para gestionar el tiempo en el sistema y configurar alarmas pero en este caso fue de apoyo para la multiplexación de los displays y como mostraria los numeros ingresados y su resultado.
+
+->Alarmas y temporizadores:
+
+Hemos creado estructuras especiales para almacenar información sobre alarmas y temporizadores. Estos son esenciales para configurar eventos y funciones cronometrados en el sistema, lo cual es útil para aplicaciones que requieren una gestión precisa del tiempo, como por ejemplo un reloj digital, que puede ser crucial.
+
+->Macros y variables globales:
+
+Para simplificar el acceso a los puertos GPIO y al reloj RCC, hemos definido macros. Además, declaramos variables globales para rastrear el estado del sistema, el estado de los botones y otras variables importantes. Esto nos permite rastrear el estado del sistema en cualquier momento y desde cualquier parte del código.
+
+->Máquinas de estados:
+
+El código se refiere a una "Secuencia de encendido" (myfsm) y una "Máquina de estado del teclado" (myfsm1). Estas máquinas de estados nos ayudan a controlar el flujo del programa y reaccionar ante ciertos eventos. Utilizamos este enfoque para simplificar la lógica de control y mejorar la modularidad del código.
+
+->Operaciones matemáticas:
+
+También definimos variables para almacenar números, operadores y resultados de operaciones matemáticas. Esto nos permite realizar cálculos numéricos en el sistema, lo que puede ser útil para aplicaciones que requieren procesamiento matemático.
+
+->Interacción con botones:
+
+El código hace referencia a una variable llamada botón, lo que sugiere que el sistema interactúa con dispositivos de entrada. Esta interacción es crucial para permitir a los usuarios controlar el sistema de forma intuitiva y sencilla, mejorando la experiencia del usuario y la usabilidad del sistema.
