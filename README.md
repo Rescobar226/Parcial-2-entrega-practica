@@ -12,3 +12,18 @@ Notas:
 ->La funcionalidad de la calculadora se ha ampliado para permitir la interacción con el usuario a través de una consola serial, donde se pueden ingresar números y seleccionar operaciones a través de un menú. 
 
 ->Para garantizar un rendimiento óptimo del sistema, la frecuencia operativa de un microcontrolador se establece en 16 MHz, lo que proporciona suficiente potencia de procesamiento para manejar las operaciones requeridas y mantener una interfaz de usuario receptiva.
+
+->Direcciones base:
+
+El código define direcciones base para puertos y periféricos GPIO. ¿Qué significa eso? Cuando trabajamos con microcontroladores o dispositivos integrados, a menudo necesitamos comunicarnos con hardware externo como sensores, pantallas o incluso otros microcontroladores. Para ello necesitamos acceder a los registros de hardware específicos de estos dispositivos.
+
+Aquí es donde entran en juego las direcciones base. Estas direcciones son como direcciones de memoria específicas que apuntan a ubicaciones físicas en el microcontrolador donde encontramos los registros que necesitamos para controlar los puertos GPIO y otros periféricos.
+
+En el código, estas direcciones base se definen como constantes o macros. Por ejemplo, podríamos tener algo como esto: 
+```c
+#define GPIO_PORTA_BASE 0x40020000
+#define GPIO_PORTB_BASE 0x40020400
+```
+Esto significa que la dirección base para el puerto GPIO A está en la dirección de memoria 0x40020000, mientras que la dirección base para el puerto GPIO B está en la dirección de memoria 0x40020400.
+
+Ahora bien, ¿por qué son importantes estas instrucciones? Si queremos configurar un pin GPIO específico o interactuar con un dispositivo periférico como un módulo USART, necesitamos acceder a los registros de control correspondientes. Y para ello necesitamos saber dónde están estos registros. Las direcciones base nos proporcionan la información crucial.
